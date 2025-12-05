@@ -1,5 +1,6 @@
-package com.sherlock.concurrency.chapter02;
+package com.sherlock.concurrency.chapter02.detailed_02_01;
 
+import com.sherlock.concurrency.annoations.ThreadSafe;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * 一个无状态的servlet
+ *
  * 与大多数Servlet相同，StatelessFactorizer是无状态的:它既不包含任何域，
  * 也不包含任何对其他类中域的引用。计算过程中的临时状态仅存在于线程栈上的局部变量中，
  * 并且只能由正在执行的线程访问。访问StatelessFactorizer的线程不会影响另一个访问
@@ -18,6 +21,7 @@ import java.util.List;
  * 因此无状态对象是线程安全的。
  */
 @RestController("/StatelessFactorizer")
+@ThreadSafe
 public class StatelessFactorizer {
 
 
