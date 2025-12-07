@@ -16,6 +16,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * 在 java.util.concurrent.atomic包中包含了一些原子变量类，用于实现在数值和对象引用上的原子状态转换。
  * 通过用AtomicLong来代替long类型的计数器，能够确保所有对计数器状态的访问操作都是原子的。
  * 由于Servlet的状态就是计数器的状态，并且计数器是线程安全的，因此这里的 Servlet 也是线程安全的。
+ *
+ * 我们在因数分解的 Servlet 中增加了一个计数器，并通过使用线程安全类AtomicLong 来管理计数器的状态，
+ * 从而确保了代码的线程安全性。当在无状态的类中添加一个状态时，如果该状态完全由线程安全的对象来管理，那么这个类仍然是线程安全的。
  */
 @RestController("/StatelessFactorizer")
 @NotThreadSafe
