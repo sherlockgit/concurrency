@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * 我们在因数分解的 Servlet 中增加了一个计数器，并通过使用线程安全类AtomicLong 来管理计数器的状态，
  * 从而确保了代码的线程安全性。当在无状态的类中添加一个状态时，如果该状态完全由线程安全的对象来管理，那么这个类仍然是线程安全的。
  */
-@RestController("/StatelessFactorizer")
+@RestController("/CountingFactorizer")
 @NotThreadSafe
 public class CountingFactorizer {
 

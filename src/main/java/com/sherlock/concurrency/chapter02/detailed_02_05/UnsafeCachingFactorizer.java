@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * 如果只修改了其中一个变量，那么在这两次修改操作之间，其他线程将发现不变性条件被破坏了。
  * 同样，我们也不能保证会同时获取两个值:在线程A获取这两个值的过程中，线程 B可能修改了它们，这样线程A也会发现不变性条件被破坏了。
  */
-@RestController("/StatelessFactorizer")
+@RestController("/UnsafeCachingFactorizer")
 @NotThreadSafe
 public class UnsafeCachingFactorizer {
 
