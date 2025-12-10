@@ -1,4 +1,4 @@
-package com.sherlock.concurrency.chapter02.detailed_02_08.detailed_02_06;
+package com.sherlock.concurrency.chapter02.detailed_02_08;
 
 import com.sherlock.concurrency.annoations.Recommend;
 import com.sherlock.concurrency.annoations.ThreadSafe;
