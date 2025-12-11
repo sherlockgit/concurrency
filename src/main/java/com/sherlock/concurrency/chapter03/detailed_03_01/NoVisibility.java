@@ -1,4 +1,4 @@
-package com.sherlock.concurrency.chapter03.detailed_03_09;
+package com.sherlock.concurrency.chapter03.detailed_03_01;
 
 import com.sherlock.concurrency.annoations.NotThreadSafe;
 
