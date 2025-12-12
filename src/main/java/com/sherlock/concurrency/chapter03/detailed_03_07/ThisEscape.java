@@ -11,18 +11,22 @@ import com.sun.jdi.event.Event;
  */
 @NotRecommend
 public class ThisEscape {
+    private int value;
 
     public ThisEscape(EventSource source){
         source.registerListener(
                 new EventListener() {
                     @Override
                     public void onEvent(Event event) {
-                        System.out.println("do something");
+                        doSomething(event);
                     }
                 }
 
         );
-
+        value = 42;
     }
-
+    private void doSomething(Event e) {
+        // 此时value可能还是0（默认值）！
+        System.out.println(value);
+    }
 }
