@@ -1,5 +1,7 @@
 package com.sherlock.concurrency.chapter03.detailed_03_11;
 
+import com.sherlock.concurrency.annoations.ThreadSafe;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ import java.util.Set;
  * stooges是一个final类型的引用变量，因此所有的对象状态都通过一个 final域来访问。
  * 最后一个要求是“正确地构造对象”，这个要求很容易满足,因为构造函数能使该引用由除了构造函数及其调用者之外的代码来访问。
  */
+@ThreadSafe
 public class ThreeStooges {
 
     private final Set<String> stooges = new HashSet<>();
