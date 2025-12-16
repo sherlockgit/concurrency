@@ -3,7 +3,9 @@ package com.sherlock.concurrency.chapter03.detailed_03_12;
 
 import com.sherlock.concurrency.annoations.ThreadSafe;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  *  对数值及其因数分解结果进行缓存的不可变容器类
@@ -19,18 +21,18 @@ import java.util.Arrays;
 public class OneValueCache {
 
     private final Long lastNumber;
-    private final Long[] lastFactors;
+    private final List<Long> lastFactors;
 
-    public OneValueCache(Long i, Long[] factors) {
+    public OneValueCache(Long i, List<Long> factors) {
         this.lastNumber = i;
-        this.lastFactors = Arrays.copyOf(factors,factors.length);
+        this.lastFactors = new ArrayList<>(factors);
     }
 
-    public Long[] getFactors(Long i){
+    public List<Long> getFactors(Long i){
         if (lastNumber == null || !lastNumber.equals(i)) {
             return null;
         }else {
-            return Arrays.copyOf(lastFactors,lastFactors.length);
+            return new ArrayList<>(lastFactors);
         }
     }
 }
