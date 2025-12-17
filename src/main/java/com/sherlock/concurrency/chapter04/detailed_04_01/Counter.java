@@ -1,5 +1,7 @@
 package com.sherlock.concurrency.chapter04.detailed_04_01;
 
+import com.sherlock.concurrency.annoations.ThreadSafe;
+
 /**
  * 使用Java监视器模式的线程安全计数器
  *
@@ -11,6 +13,7 @@ package com.sherlock.concurrency.chapter04.detailed_04_01;
  *
  *
  */
+@ThreadSafe
 public class Counter {
 
     private long value = 0;
