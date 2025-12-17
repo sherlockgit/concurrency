@@ -1,7 +1,6 @@
 package com.sherlock.concurrency.chapter03.detailed_03_13;
 
 
-import com.sherlock.concurrency.annoations.NotThreadSafe;
 import com.sherlock.concurrency.annoations.ThreadSafe;
 import com.sherlock.concurrency.chapter03.detailed_03_12.OneValueCache;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +11,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 使用指向不可变容器对象的volatile类型引用以缓存最新的结果
+ *
+ * 对于在访问和更新多个相关变量时出现的竞争条件问题，可以通过将这些变量全部保存在一个不可变对象中来消除。
+ * 如果是一个可变的对象，那么就必须使用锁来确保原子性。如果是一个不可变对象，那么当线程获得了对该对象的引用后，
+ * 就不必担心另一个线程会修改对象的状态。如果要更新这些变量，那么可以创建一个新的容器对象，
+ * 但其他使用原有对象的线程仍然会看到对象处于一致的状态。
+ *
+ * 程序中的VolatileCacheFactorizer使用了 OneValueCache来保存缓存的数值及其因数。
+ * 当-个线程将volatile类型的cache设置为引用一个新的OneValueCache时，其他线程就会立即看到新缓存的数据。
+ */
 @RestController("/VolatileCacheFactorizer")
 @ThreadSafe
 public class VolatileCacheFactorizer {
