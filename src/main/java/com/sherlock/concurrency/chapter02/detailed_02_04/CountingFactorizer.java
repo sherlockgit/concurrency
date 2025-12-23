@@ -1,6 +1,7 @@
 package com.sherlock.concurrency.chapter02.detailed_02_04;
 
 import com.sherlock.concurrency.annoations.NotThreadSafe;
+import com.sherlock.concurrency.annoations.ThreadSafe;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * 从而确保了代码的线程安全性。当在无状态的类中添加一个状态时，如果该状态完全由线程安全的对象来管理，那么这个类仍然是线程安全的。
  */
 @RestController("/CountingFactorizer")
-@NotThreadSafe
+@ThreadSafe
 public class CountingFactorizer {
 
     private final AtomicLong count = new AtomicLong(0);
