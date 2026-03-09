@@ -22,6 +22,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @NotThreadSafe
 public class NumberRange {
+
+    /*如果一个类是由多个独立且线程安全的状态变量组成，并且在所有的操作中都不包含无效状态转换，那么可以将线程安全性委托给底层的状态变量。*/
+
     // 不变性条件：lower <= upper
     private final AtomicInteger lower = new AtomicInteger(0);
     private final AtomicInteger upper = new AtomicInteger(0);
