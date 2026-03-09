@@ -6,7 +6,6 @@ import com.sherlock.concurrency.chapter04.detailed_04_06.Point;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
@@ -18,28 +17,12 @@ import java.util.concurrent.ConcurrentMap;
 @ThreadSafe
 public class DelegatingVehicleTrackerShallowCopy {
     private final ConcurrentMap<String, Point> locations;
-    private final Map<String, Point> unmodifiableMap;
 
-    // 构造函数
-    public DelegatingVehicleTrackerShallowCopy(Map<String, Point> points) {
-        locations = new ConcurrentHashMap<>(points);
-        unmodifiableMap = Collections.unmodifiableMap(locations);
+    public DelegatingVehicleTrackerShallowCopy(ConcurrentMap<String, Point> locations) {
+        this.locations = locations;
     }
 
-    // 一个不发生变化的车辆视图
-    public Map<String, Point> getLocations() {
-        return Collections.unmodifiableMap(new HashMap<String,Point>(locations));
-    }
-
-    // 获取单个位置
-    public Point getLocation(String id) {
-        return locations.get(id);
-    }
-
-    // 设置位置
-    public void setLocation(String id, int x, int y) {
-        if (locations.replace(id, new Point(x, y)) == null)
-            throw new IllegalArgumentException(
-                    "invalid vehicle name: " + id);
+    public Map<String,Point> getLocations(){
+        return Collections.unmodifiableMap(new HashMap<>(locations));
     }
 }
