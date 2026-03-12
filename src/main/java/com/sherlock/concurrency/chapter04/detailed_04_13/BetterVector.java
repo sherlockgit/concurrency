@@ -1,5 +1,7 @@
 package com.sherlock.concurrency.chapter04.detailed_04_13;
 
+import com.sherlock.concurrency.annoations.ThreadSafe;
+
 import java.util.Vector;
 
 /**
@@ -21,6 +23,7 @@ import java.util.Vector;
  * * 如果底层的类改变了同步策略并选择了不同的锁来保护它的状态变量，那么子类会被破坏，
  * * 因为在同步策略改变后它无法再使用正确的锁来控制对基类状态的并发访问。(在Vector 的规范中定义了它的同步策略，因此BetterVector 不存在这个问题。)
  */
+@ThreadSafe
 public class BetterVector<E> extends Vector<E> {
     public synchronized boolean putIfAbsent(E x){
         boolean absent = !contains(x);
