@@ -26,11 +26,5 @@ public class VectorDemo {
         }
     }
 
-    public static Object deleteLast(Vector list){
-        synchronized (list){
-            int lastIndex = list.size() - 1;
-            return list.remove(lastIndex);
-        }
-    }
 
 }
