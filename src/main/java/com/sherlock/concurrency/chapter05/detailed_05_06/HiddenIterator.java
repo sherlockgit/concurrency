@@ -9,6 +9,11 @@ import java.util.*;
  * * 实际情况要更加复杂，因为在某些情况下，迭代器会隐藏起来，如程序中的HiddenIterator 所示。在HiddenIterator 中没有显式的迭代操作，
  * * 但在粗体标出的代码中将执行迭代操作。编译器将字符串的连接操作转换为调用 StringBuilder.append(Object)，
  * * 而这个方法又会调用容器的toString方法，标准容器的toString方法将迭代容器，并在每个元素上调用toString来生成容器内容的格式化表示。
+ *
+ *
+ * 容器的hashCode和equals等方法也会间接地执行迭代操作，当容器作为另一个容器的元
+ * 素或键值时，就会出现这种情况。同样，containsAll、removeAll和retainAll等方法，以及把
+ * 容器作为参数的构造函数，都会对容器进行迭代。所有这些间接的迭代操作都可能抛出ConcurrentModificationException.
  */
 public class HiddenIterator {
     private final Set<Integer> set = new HashSet<Integer>();
