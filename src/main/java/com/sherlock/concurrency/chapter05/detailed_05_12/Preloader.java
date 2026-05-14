@@ -45,6 +45,9 @@ public class Preloader {
             // 如果是预期的 DataLoadException，则重新抛出
             if (cause instanceof DataLoadException){
                 throw (DataLoadException) cause;
+            }else {
+
+
             }
             return null;
         }
@@ -53,5 +56,22 @@ public class Preloader {
     private ProductInfo loadProductInfo(){
         //加载产品信息
         return new ProductInfo();
+    }
+
+    /**
+     * Throwable
+     *     ├── Error
+     *     └── Exception
+     *             ├── RuntimeException (非受检)
+     *             └── 其他受检异常 (如 IOException)
+     */
+    private RuntimeException launderThrowable(Throwable t){
+        if (t instanceof RuntimeException) {
+            return (RuntimeException) t;
+        }else if(t instanceof Error){
+            throw (Error) t;
+        }else {
+            throw new IllegalStateException("Not unchecked",t);
+        }
     }
 }
