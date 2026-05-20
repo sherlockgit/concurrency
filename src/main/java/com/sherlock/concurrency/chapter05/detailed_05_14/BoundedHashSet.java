@@ -3,6 +3,7 @@ package com.sherlock.concurrency.chapter05.detailed_05_14;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 
 /**
