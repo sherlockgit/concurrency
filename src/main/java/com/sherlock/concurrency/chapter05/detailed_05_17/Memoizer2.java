@@ -1,6 +1,5 @@
 package com.sherlock.concurrency.chapter05.detailed_05_17;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
