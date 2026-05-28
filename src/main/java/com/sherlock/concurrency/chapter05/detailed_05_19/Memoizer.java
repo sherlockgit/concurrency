@@ -4,6 +4,8 @@ package com.sherlock.concurrency.chapter05.detailed_05_19;
 import java.util.concurrent.*;
 
 /**
+ * Memoizer的最终实现
+ * * *
  * 终极记忆包装器（最终版）：使用 ConcurrentHashMap 的原子操作 putIfAbsent，
  * 彻底解决了版本3中的竞争条件问题。确保对于同一个参数，绝对只有一个线程执行实际计算。
  * 同时处理了计算过程中可能出现的异常和取消操作，自动清理缓存中的无效条目。
