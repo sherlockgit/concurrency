@@ -3,6 +3,7 @@ package com.sherlock.concurrency.chapter07.detailed_07_11;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.concurrent.FutureTask;
 
 /**
  * ReaderThread。
