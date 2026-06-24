@@ -78,7 +78,16 @@ public class TrackingExecutor extends AbstractExecutorService {
      */
     @Override
     public List<Runnable> shutdownNow() {
-        return exec.shutdownNow();
+        List<Runnable> tasks = exec.shutdownNow();
+        List<Runnable> result = new ArrayList<>(tasks.size());
+        for (Runnable task : tasks) {
+            if (task instanceof SubmittedTask) {
+                result.add(((SubmittedTask) task).getOriginalTask());
+            } else {
+                result.add(task);
+            }
+        }
+        return result;
     }
 
     /**
@@ -151,17 +160,38 @@ public class TrackingExecutor extends AbstractExecutorService {
      */
     @Override
     public void execute(final Runnable runnable) {
-        exec.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    runnable.run();
-                } finally {
-                    if (isShutdown() && Thread.currentThread().isInterrupted()) {
-                        tasksCancelledAtShutdown.add(runnable);
-                    }
+        exec.execute(new SubmittedTask(runnable));
+    }
+
+    /**
+     * 对用户提交任务的内部包装。
+     *
+     * <p>它有两个职责：</p>
+     *
+     * <p>1. 在 finally 中记录“关闭过程中被取消”的任务；</p>
+     * <p>2. 保留对原始 runnable 的引用，便于 shutdownNow() 返回“原始任务列表”，
+     *    而不是把内部包装对象暴露给上层调用者。</p>
+     */
+    private class SubmittedTask implements Runnable {
+        private final Runnable originalTask;
+
+        private SubmittedTask(Runnable originalTask) {
+            this.originalTask = originalTask;
+        }
+
+        @Override
+        public void run() {
+            try {
+                originalTask.run();
+            } finally {
+                if (isShutdown() && Thread.currentThread().isInterrupted()) {
+                    tasksCancelledAtShutdown.add(originalTask);
                 }
             }
-        });
+        }
+
+        private Runnable getOriginalTask() {
+            return originalTask;
+        }
     }
 }
