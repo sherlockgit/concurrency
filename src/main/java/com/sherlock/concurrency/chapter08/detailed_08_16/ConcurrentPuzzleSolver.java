@@ -132,7 +132,7 @@ public class ConcurrentPuzzleSolver<P, M> {
      */
     protected class SolverTask extends PuzzleNode<P, M> implements Runnable {
 
-        SolverTask(P position, M move, PuzzleNode<P, M> previous) {
+        protected SolverTask(P position, M move, PuzzleNode<P, M> previous) {
             super(position, move, previous);
         }
 
