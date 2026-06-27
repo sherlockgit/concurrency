@@ -27,26 +27,26 @@ import java.util.List;
  * @param <P> Position，拼图位置或问题状态类型
  * @param <M> Move，从一个位置移动到另一个位置的动作类型
  */
-public final class PuzzleNode<P, M> {
+public class PuzzleNode<P, M> {
 
     /**
      * 当前节点对应的位置。
      */
-    private final P pos;
+    protected final P pos;
 
     /**
      * 从前一个节点移动到当前节点所使用的动作。
      *
      * <p>初始节点没有前一个节点，因此初始节点的 move 通常为 null。</p>
      */
-    private final M move;
+    protected final M move;
 
     /**
      * 指向前一个搜索节点。
      *
      * <p>初始节点没有前驱，因此初始节点的 prev 通常为 null。</p>
      */
-    private final PuzzleNode<P, M> prev;
+    protected final PuzzleNode<P, M> prev;
 
     /**
      * 创建一个搜索节点。
