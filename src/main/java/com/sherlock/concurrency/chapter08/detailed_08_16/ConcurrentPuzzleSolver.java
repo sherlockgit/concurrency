@@ -2,13 +2,13 @@ package com.sherlock.concurrency.chapter08.detailed_08_16;
 
 import com.sherlock.concurrency.chapter08.detailed_08_13.Puzzle;
 import com.sherlock.concurrency.chapter08.detailed_08_14.PuzzleNode;
+import com.sherlock.concurrency.chapter08.detailed_08_17.ValueLatch;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -64,7 +64,7 @@ public class ConcurrentPuzzleSolver<P, M> {
      * 保存第一个找到的解。
      *
      * <p>ValueLatch 类本身是书中 8.17。
-     * 为了让 8.16 这个文件可以单独编译运行，这里先放一个私有等价实现。</p>
+     * 这里复用正式的 8.17 实现，后续 8.18 可以继续继承本求解器。</p>
      */
     protected final ValueLatch<PuzzleNode<P, M>> solution =
             new ValueLatch<PuzzleNode<P, M>>();
@@ -157,40 +157,6 @@ public class ConcurrentPuzzleSolver<P, M> {
                     P nextPosition = puzzle.move(pos, move);
                     exec.execute(newTask(nextPosition, move, this));
                 }
-            }
-        }
-    }
-
-    /**
-     * 一次性结果容器。
-     *
-     * <p>这是 8.17 ValueLatch 的简化内嵌版本：
-     * 第一个调用 {@link #setValue(Object)} 的线程会设置结果并唤醒等待者；
-     * 后续设置会被忽略。</p>
-     *
-     * @param <T> 结果类型
-     */
-    private static class ValueLatch<T> {
-
-        private T value;
-
-        private final CountDownLatch done = new CountDownLatch(1);
-
-        public boolean isSet() {
-            return done.getCount() == 0;
-        }
-
-        public synchronized void setValue(T newValue) {
-            if (!isSet()) {
-                value = newValue;
-                done.countDown();
-            }
-        }
-
-        public T getValue() throws InterruptedException {
-            done.await();
-            synchronized (this) {
-                return value;
             }
         }
     }
