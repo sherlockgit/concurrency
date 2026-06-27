@@ -98,7 +98,7 @@ public class DynamicOrderDeadlock {
      * <p>官方示例中这个类只是占位实现。
      * 为了让本地示例可以编译和运行，这里用 int 保存金额，并把它实现为不可变对象。</p>
      */
-    static class DollarAmount implements Comparable<DollarAmount> {
+    public static class DollarAmount implements Comparable<DollarAmount> {
 
         private final int amount;
 
@@ -132,7 +132,7 @@ public class DynamicOrderDeadlock {
      * 转账时需要同时锁住两个账户，才能保证“从一个账户扣钱”和“给另一个账户加钱”
      * 这个复合操作是原子的。</p>
      */
-    static class Account {
+    public static class Account {
 
         private DollarAmount balance;
 
@@ -167,7 +167,7 @@ public class DynamicOrderDeadlock {
         }
     }
 
-    static class InsufficientFundsException extends Exception {
+    public static class InsufficientFundsException extends Exception {
     }
 
     /**
