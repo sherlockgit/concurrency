@@ -96,6 +96,16 @@ public class TimedPutTakeTest {
      * @return 测试主体耗时，单位是纳秒
      */
     public long test() {
+        return test(true);
+    }
+
+    /**
+     * 执行带计时的生产者-消费者测试。
+     *
+     * @param verbose 是否在当前方法中直接打印计时结果
+     * @return 测试主体耗时，单位是纳秒
+     */
+    public long test(boolean verbose) {
         ExecutorService pool = Executors.newCachedThreadPool();
         try {
             timer.clear();
@@ -130,10 +140,12 @@ public class TimedPutTakeTest {
             long nsPerItem = elapsedNanos / itemCount;
             long nsPerOperation = elapsedNanos / (itemCount * 2);
 
-            System.out.println("items=" + itemCount);
-            System.out.println("elapsedNanos=" + elapsedNanos);
-            System.out.println("nsPerItem=" + nsPerItem);
-            System.out.println("nsPerPutOrTake=" + nsPerOperation);
+            if (verbose) {
+                System.out.println("items=" + itemCount);
+                System.out.println("elapsedNanos=" + elapsedNanos);
+                System.out.println("nsPerItem=" + nsPerItem);
+                System.out.println("nsPerPutOrTake=" + nsPerOperation);
+            }
 
             return elapsedNanos;
         } finally {
